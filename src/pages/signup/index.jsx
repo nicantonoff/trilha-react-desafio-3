@@ -1,5 +1,5 @@
 import { useNavigate  } from "react-router-dom";
-import { MdEmail, MdLock } from 'react-icons/md'
+import { MdPerson, MdEmail, MdLock } from 'react-icons/md'
 import { Button } from '../../components/Button';
 import { Header } from '../../components/Header';
 import { Input } from '../../components/Input';
@@ -8,9 +8,9 @@ import { api } from '../../services/api';
 import { useForm } from "react-hook-form";
 
 
-import { Container, Title, Column, TitleLogin, SubtitleLogin, EsqueciText, CriarText, Row, Wrapper } from './styles';
+import { Container, Title, Column, TitleLogin, SubtitleLogin, PoliticasText, LoginText, Span, Wrapper } from './styles';
 
-const Login = () => {
+const Signup = () => {
 
     const navigate = useNavigate()
 
@@ -21,7 +21,11 @@ const Login = () => {
 
     const onSubmit = async (formData) => {
         try{
-            const {data} = await api.get(`/users?email=${formData.email}&senha=${formData.senha}`);
+            const {data} = await api.post('/users/signup', {
+                nome: formData.nome,
+                email: formData.email,
+                senha: formData.senha
+            });
             
             if(data.length && data[0].id){
                 navigate('/feed') 
@@ -31,11 +35,9 @@ const Login = () => {
             alert('Usuário ou senha inválido')
         }catch(e){
             console.error('An error occurred:', e);
-            alert('Ocorreu um erro ao tentar fazer login. Por favor, tente novamente mais tarde.');
+            alert('Ocorreu um erro ao tentar fazer o cadastro. Por favor, tente novamente mais tarde.');
         }
     };
-
-    console.log('errors', errors);
 
     return (<>
         <Header />
@@ -46,23 +48,25 @@ const Login = () => {
             </Column>
             <Column>
                 <Wrapper>
-                <TitleLogin>Já tem cadastro?</TitleLogin>
-                <SubtitleLogin>Faça seu login e make the change._</SubtitleLogin>
+                <TitleLogin>Comece agora grátis</TitleLogin>
+                <SubtitleLogin>Crie sua conta e make the change._</SubtitleLogin>
                 <form onSubmit={handleSubmit(onSubmit)}>
+                    <Input placeholder="Nome completo" leftIcon={<MdPerson style={{ color: '#8647AD' }} />} name="nome" control={control} />
+                    {errors.nome && <span>Nome é obrigatório</span>}
                     <Input placeholder="E-mail" leftIcon={<MdEmail style={{ color: '#8647AD' }} />} name="email"  control={control} />
                     {errors.email && <span>E-mail é obrigatório</span>}
                     <Input type="password" placeholder="Senha" leftIcon={<MdLock style={{ color: '#8647AD' }} />}  name="senha" control={control} />
                     {errors.senha && <span>Senha é obrigatório</span>}
-                    <Button title="Entrar" variant="secondary" type="submit"/>
+                    <Button title="Criar minha conta" variant="secondary"/>
                 </form>
-                <Row>
-                    <EsqueciText>Esqueci minha senha</EsqueciText>
-                    <CriarText onClick={() => navigate('/signup')}>Criar Conta</CriarText>
-                </Row>
+                <Column>
+                    <PoliticasText>Ao clicar em "criar minha conta grátis", declaro que aceito as Políticas de Privacidade e os Termos de Uso da DIO.</PoliticasText>
+                    <LoginText>Já tenho conta. <Span onClick={() => navigate('/login')}>Fazer login</Span></LoginText>
+                </Column>
                 </Wrapper>
             </Column>
         </Container>
     </>)
 }
 
-export { Login }
+export { Signup }

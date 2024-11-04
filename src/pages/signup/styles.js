@@ -13,7 +13,7 @@ export const Container = styled.main`
 `
 
 export const Wrapper = styled.div`
-    max-width: 300px;
+    max-width: 350px;
 `
 
 export const Column = styled.div`
@@ -59,22 +59,33 @@ export const SubtitleLogin = styled.p`
 `
 
 
-export const EsqueciText = styled.p`
+export const PoliticasText  = styled.p`
     font-family: 'Open Sans';
     font-style: normal;
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 19px;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+    margin: 20px 0px;
 
-    color: #E5E044;
+    color: #FFFFFF;
 ` 
 
-export const CriarText = styled.p`
+export const LoginText =  styled.p`
     font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
     font-size: 14px;
     line-height: 19px;
+
+    color: #FFFFFF;
+`
+export const Span = styled.span`
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 19px;
+    text-decoration: none;
     cursor: pointer;
 
     color: #23DD7A;

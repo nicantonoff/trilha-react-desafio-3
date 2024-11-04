@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo-dio.png';
 
 import { Button } from '../Button';
@@ -6,11 +7,25 @@ import { Button } from '../Button';
 import { Container, Wrapper, BuscarInputContainer, Input, Row, Menu, MenuRight, UserPicture} from './styles';
 
 const Header = ({autenticado}) => {
+  const navigate = useNavigate();
+
+  const handleLogoClick = () => {
+    navigate('/');
+  };
+
+  const handleLoginClick = () => {
+    navigate('/login');
+  };
+
+  const handleSignupClick = () => {
+    navigate('/signup');
+  };
+
   return (
     <Wrapper>
       <Container>
           <Row>
-            <img src={logo} alt="Logo da dio"/>
+            <img src={logo} alt="Logo da dio" onClick={handleLogoClick} style={{ cursor: 'pointer' }}/>
             {autenticado ? (
               <>
                <BuscarInputContainer>
@@ -27,8 +42,8 @@ const Header = ({autenticado}) => {
               ) : (
               <>
                 <MenuRight href="/">Home</MenuRight>
-                <Button title="Entrar" />
-                <Button title="Cadastrar" />
+                <Button title="Entrar" onClick={handleLoginClick}/>
+                <Button title="Cadastrar" onClick={handleSignupClick}/>
               </>)}
           </Row>
       </Container>
